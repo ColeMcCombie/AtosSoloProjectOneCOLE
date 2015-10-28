@@ -20,6 +20,7 @@ public class ParkingTicket
 
     private int lengthOfStayMinutes;
 
+    //prepaid 
     public ParkingTicket(String RegNo, int ArrivalHrs, int ArrivalMin, int ExpiryHour, int ExpiryMin)
     {
         this.RegNo = RegNo;
@@ -28,6 +29,7 @@ public class ParkingTicket
         this.isPrePaid = true;
     }
 
+    //driveup parking ticket
     public ParkingTicket(String RegNo, int ArrivalHrs, int ArrivalMin)
     {
         this.RegNo = RegNo;
@@ -35,12 +37,12 @@ public class ParkingTicket
         this.ArrivalMin = ArrivalMin;
         this.isPrePaid = false;
     }
-
-    public void calcDriveUpWeekday()
+ 
+    //overstayed prepaid
+    /*public ParkingTicket(String RegNo, int ArrivalHrs, int ArrivalMin,  )
     {
-
-    }
-
+        
+    }*/
     public String getRegNo()
     {
         return RegNo;

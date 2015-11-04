@@ -2,6 +2,9 @@ package CarParkExitBarrierSystem;
 
 public enum Charge
 {
+
+    // processes total value
+
     WDUpTo1(
             4.70),
     WDUpTo2(

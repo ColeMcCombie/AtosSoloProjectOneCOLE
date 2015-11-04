@@ -9,7 +9,7 @@ import CarParkExitBarrierSystem.ParkingTicket;
 public class TestParkingTicket
 {
 
-    ParkingTicket ticket = new ParkingTicket("AA22BLD", 10, 05);
+    CarParkExitBarrierSystem.ParkingTicket ticket = new ParkingTicket("AA22BLD", 10, 05);
 
     @Test
     public void testGetRegNo()

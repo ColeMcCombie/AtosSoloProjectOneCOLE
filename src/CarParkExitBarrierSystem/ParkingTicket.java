@@ -13,7 +13,7 @@ public class ParkingTicket
 
     private int ArrivalHrs, ArrivalMin;
 
-    protected boolean isPrePaid;
+    private boolean isPrePaid;
 
     private int ExpiryHour, ExpiryMin;
 
@@ -37,6 +37,12 @@ public class ParkingTicket
         this.ArrivalHrs = ArrivalHrs;
         this.ArrivalMin = ArrivalMin;
         this.isPrePaid = false;
+    }
+
+    public String toString()
+    {
+        return "Registration Number: " + RegNo + ", Arrival Time: " + ArrivalHrs + ":" + ArrivalMin;
+
     }
 
     // overstayed prepaid
@@ -95,4 +101,5 @@ public class ParkingTicket
     {
         return lengthOfStayMinutes;
     }
+
 }

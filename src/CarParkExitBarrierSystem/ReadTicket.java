@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class ReadTicket
 {
-
     private String Reg;
 
     private int AmmountOfTickets = 0, ArriveHrs, ArriveMin, ExpiryHr, ExpiryMin;
@@ -27,7 +26,6 @@ public class ReadTicket
             Scanner r = new Scanner(new File("ParkingTicket.csv"));
             AmmountOfTickets = Integer.parseInt(r.nextLine());
             TicketDetails = new String[AmmountOfTickets];
-
             for (int tickets = 0; tickets < AmmountOfTickets; tickets++)
             {
                 TicketDetails[tickets] = r.nextLine(); // reads information and puts into Array
@@ -40,26 +38,34 @@ public class ReadTicket
             e.printStackTrace();
         }
         // write
-        System.out.println("Ticket Successfully Read!");
-
         if (payForTicket)
         {
+            boolean ticketfound = false;
             for (int tickets = 0; tickets < TicketDetails.length; tickets++)
             {
                 TicketSplitter = TicketDetails[tickets].split(", ");
-
                 if (REG.equals(TicketSplitter[1]))
                 {
                     System.out.println("Your ticket has been found!");
-                    System.out.println(TicketSplitter[0]);
-                    System.out.println(TicketSplitter[1]);
-                    System.out.println(TicketSplitter[2]);
-                    System.out.println(TicketSplitter[3]);
-                    System.out.println(TicketSplitter[4]);
+                    System.out.println("Transaction Number: " + TicketSplitter[0] + ", Registration Number: "
+                            + TicketSplitter[1] + ", Date: " + TicketSplitter[2] + ", Arrival Time: "
+                            + TicketSplitter[3] + ":" + TicketSplitter[4]);
+                    ticketfound = true;
+                    ArriveHrs = Integer.parseInt(TicketSplitter[3]);
+                    ArriveMin = Integer.parseInt(TicketSplitter[4]);
                 }
             }
+            if (ticketfound)
+            {
+                ParkingTransaction PT = new ParkingTransaction(Reg, ArriveHrs, ArriveMin);
+            }
+            if (ticketfound == false)
+            {
+                System.out.println("Ticket Not Found.");
+                ParkingTransaction m = new ParkingTransaction();
+                m.getOpt();
+            }
         }
-
     }
 
     public void writeToFile(String Reg, int ArriveHrs, int ArriveMin, int ExpiryHr, int ExpiryMin, boolean isPrePaid)

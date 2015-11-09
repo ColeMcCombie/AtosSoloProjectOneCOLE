@@ -19,6 +19,7 @@ public enum Charge
             20.20),
     WDUpTo24(
             23.70),
+
     WEUpTo2(
             4.40),
     WEUpTo6(

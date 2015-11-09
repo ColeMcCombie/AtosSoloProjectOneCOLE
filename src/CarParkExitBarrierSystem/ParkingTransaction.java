@@ -31,26 +31,27 @@ public class ParkingTransaction
         System.out.println("Please pick one of the following options:");
         System.out.println("1. Pre-paid Ticket");
         System.out.println("2. DriveUp Ticket");
+        System.out.println("3. Pay For Stay");
 
         String opt = sc.next();
 
         if (opt.equals("1"))
         {
-
             // call Pre-paid Ticket method
-
             System.out.println("Pre-paid Ticket");
-
         }
 
         if (opt.equals("2"))
         {
-
             // Call Drive up Ticket method
-
             System.out.println("Drive Up Ticket");
+            DriveUp.confirmSelection(sc, true);
 
-            DriveUp.confirmSelection(sc);
+        }
+        if (opt.equals("3"))
+        {
+            System.out.println("Pay For Stay");
+            DriveUp.confirmSelection(sc, false);
 
         }
 

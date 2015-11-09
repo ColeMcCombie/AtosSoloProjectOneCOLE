@@ -6,26 +6,41 @@ import java.util.Scanner;
 
 public class DriveUpParkingTransaction
 {
-
-    public void confirmSelection(Scanner sc)
+    public void confirmSelection(Scanner sc, boolean createTicket)
     {
-
-        System.out.println("You have selected Drive Up Ticket, is this correct?");
-
-        String opt = sc.next();
-
-        if (opt.equals("yes") || opt.equals("Yes"))
+        if (createTicket == true)
         {
-            System.out.println("Successfully Selected Yes");
-            DriveUpParkingTransaction TRANS = new DriveUpParkingTransaction();
-            TRANS.getTicket();
+            System.out.println("You have selected Drive Up Ticket, is this correct?");
+            String opt = sc.next();
+            if (opt.equals("yes") || opt.equals("Yes"))
+            {
+                System.out.println("Successfully Selected Yes");
+                DriveUpParkingTransaction TRANS = new DriveUpParkingTransaction();
+                TRANS.getTicket();
+            }
+            if (opt.equals("No") || opt.equals("no"))
+            {
+                System.out.println("Successfully selected No");
+                ParkingTransaction m = new ParkingTransaction();
+                m.getOpt();
+            }
         }
-
-        if (opt.equals("No") || opt.equals("no"))
+        else
         {
-            System.out.println("Successfully selected No");
-            ParkingTransaction m = new ParkingTransaction();
-            m.getOpt();
+            System.out.println("You have selected Pay For Ticket, is this correct?");
+            String opt = sc.next();
+            if (opt.equals("yes") || opt.equals("Yes"))
+            {
+                System.out.println("Successfully Selected Yes");
+                DriveUpParkingTransaction TRANS = new DriveUpParkingTransaction();
+                TRANS.payForTicket();
+            }
+            if (opt.equals("No") || opt.equals("no"))
+            {
+                System.out.println("Successfully selected No");
+                ParkingTransaction m = new ParkingTransaction();
+                m.getOpt();
+            }
         }
     }
 
@@ -33,16 +48,28 @@ public class DriveUpParkingTransaction
     {
         Scanner sc = new Scanner(System.in);
         Calendar c = new GregorianCalendar();
-        int hr = c.get(Calendar.HOUR), min = c.get(Calendar.MINUTE);
-        String UserReg;
+        int hr = c.get(Calendar.HOUR_OF_DAY), min = c.get(Calendar.MINUTE);
+        String UserReg = "";
         System.out.println("Enter Registration Number: ");
         UserReg = sc.nextLine();
         ParkingTicket DUT = new ParkingTicket(UserReg, hr, min);
         // DUT = drive up ticket
         System.out.println(DUT.toString());
         ReadTicket X = new ReadTicket();
-        X.copyFile(UserReg, hr, min, 0, 0, false);
-
+        X.readFile(UserReg, false);
+        X.writeToFile(UserReg, hr, min, 0, 0, false);
     }
 
+    public void payForTicket()
+    {
+
+        Scanner sc = new Scanner(System.in);
+        String UserReg = "";
+        System.out.println("Enter Registration Number: ");
+        UserReg = sc.nextLine();
+        ReadTicket PFT = new ReadTicket();
+        PFT.readFile(UserReg, true);
+
+        // PFT = pay for ticket
+    }
 }

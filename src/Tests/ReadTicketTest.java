@@ -11,7 +11,7 @@ public class ReadTicketTest
     public void test()
     {
         ReadTicket ticket1 = new ReadTicket();
-        ReadTicket.copyFile();
+        // ReadTicket.readFile();
     }
 
 }

@@ -135,12 +135,27 @@ public class ParkingTransaction
             cost = Charge.WDUpTo1.getCharge();
         else if (totalMins <= 120)
             cost = Charge.WDUpTo2.getCharge();
-
+        else if (totalMins <= 240)
+            cost = Charge.WDUpTo4.getCharge();
+        else if (totalMins <= 360)
+            cost = Charge.WDUpTo6.getCharge();
+        else if (totalMins <= 540)
+            cost = Charge.WDUpTo9.getCharge();
+        else if (totalMins <= 720)
+            cost = Charge.WDUpTo12.getCharge();
+        else if (totalMins <= 1440)
+            cost = Charge.WDUpTo24.getCharge();
     }
 
     public void weekendCalc()
     {
-
+        int totalMins = ((LOShrs * 60) + LOSmin);
+        if (totalMins <= 60)
+            cost = Charge.WEUpTo2.getCharge();
+        else if (totalMins <= 360)
+            cost = Charge.WEUpTo6.getCharge();
+        else if (totalMins <= 1440)
+            cost = Charge.WEUpTo24.getCharge();
     }
 
 }

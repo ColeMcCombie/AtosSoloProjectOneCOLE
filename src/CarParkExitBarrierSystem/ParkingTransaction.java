@@ -105,12 +105,17 @@ public class ParkingTransaction
     {
         if (checkWeekDay())
         {
-            // calculate cost for weekday
+            weekdayCalc();
         }
         else
         {
-            // calculate cost for weekend
+            weekendCalc();
         }
+    }
+
+    public double getCost()
+    {
+        return cost;
     }
 
     public boolean checkWeekDay()
@@ -118,7 +123,7 @@ public class ParkingTransaction
         c = new GregorianCalendar();
 
         int weekday = c.get(Calendar.DAY_OF_WEEK);
-        if (weekday >= c.get(Calendar.MONDAY) && weekday <= c.get(Calendar.FRIDAY))
+        if (weekday >= 2 && weekday <= 6)
         {
             return true;
         }
@@ -130,6 +135,7 @@ public class ParkingTransaction
 
     public void weekdayCalc()
     {
+
         int totalMins = ((LOShrs * 60) + LOSmin);
         if (totalMins <= 60)
             cost = Charge.WDUpTo1.getCharge();
@@ -143,7 +149,7 @@ public class ParkingTransaction
             cost = Charge.WDUpTo9.getCharge();
         else if (totalMins <= 720)
             cost = Charge.WDUpTo12.getCharge();
-        else if (totalMins <= 1440)
+        else
             cost = Charge.WDUpTo24.getCharge();
     }
 
@@ -154,7 +160,7 @@ public class ParkingTransaction
             cost = Charge.WEUpTo2.getCharge();
         else if (totalMins <= 360)
             cost = Charge.WEUpTo6.getCharge();
-        else if (totalMins <= 1440)
+        else
             cost = Charge.WEUpTo24.getCharge();
     }
 

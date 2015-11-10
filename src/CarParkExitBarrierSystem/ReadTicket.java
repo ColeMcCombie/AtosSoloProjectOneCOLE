@@ -53,19 +53,25 @@ public class ReadTicket
                     ticketfound = true;
                     ArriveHrs = Integer.parseInt(TicketSplitter[3]);
                     ArriveMin = Integer.parseInt(TicketSplitter[4]);
+
                 }
             }
             if (ticketfound)
             {
                 ParkingTransaction PT = new ParkingTransaction(Reg, ArriveHrs, ArriveMin);
+                PT.calcLOS();
+                PT.calculateCost();
+                System.out.println(PT.getCost());
+
             }
-            if (ticketfound == false)
+            else if (ticketfound == false)
             {
                 System.out.println("Ticket Not Found.");
                 ParkingTransaction m = new ParkingTransaction();
                 m.getOpt();
             }
         }
+
     }
 
     public void writeToFile(String Reg, int ArriveHrs, int ArriveMin, int ExpiryHr, int ExpiryMin, boolean isPrePaid)

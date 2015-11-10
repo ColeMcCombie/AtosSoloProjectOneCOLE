@@ -70,6 +70,73 @@ public class DriveUpParkingTransaction
         ReadTicket PFT = new ReadTicket();
         PFT.readFile(UserReg, true);
 
-        // PFT = pay for ticket
+        boolean cardAccepted = false;
+        boolean cardDateAccepted = false;
+
+        do
+        {
+            cardDateAccepted = false;
+            System.out.println("Please input Card Number: ");
+            String CardNo = sc.nextLine();
+            if (checkCardDigits(CardNo))
+            {
+                System.out.println("Card Number accepted! ");
+                do
+                {
+                    if (checkCardExpiry())
+                    {
+                        cardDateAccepted = true;
+                        cardAccepted = true;
+                    }
+                    else
+                    {
+                        cardDateAccepted = true;
+                    }
+
+                }
+                while (cardDateAccepted == false);
+
+            }
+            else
+                System.out.println("Please try again.");
+        }
+        while (cardAccepted == false);
+        System.out.println("Card has been accepted and processed! Payment Complete!\n");
+        ParkingTransaction m = new ParkingTransaction();
+        m.getOpt();
+
     }
+
+    public boolean checkCardDigits(String CardNo)
+    {
+        if (CardNo.length() == 16)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public boolean checkCardExpiry()
+    {
+        Scanner sc = new Scanner(System.in);
+        Calendar c = new GregorianCalendar();
+
+        System.out.println("Enter Expiry Month: (mm)");
+        int expMonth = sc.nextInt();
+        System.out.println("Enter Expiry Year: (YYYY)");
+        int expYear = sc.nextInt();
+
+        if (expYear >= c.get(Calendar.YEAR) || expYear == c.get(Calendar.YEAR)
+                && expMonth >= (c.get(Calendar.MONTH) + 1))
+        {
+            return true;
+        }
+        else
+        {
+            System.out.println("Card Expired! Try another.");
+            return false;
+        }
+    }
+
 }

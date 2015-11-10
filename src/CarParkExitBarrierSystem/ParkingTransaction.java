@@ -71,21 +71,6 @@ public class ParkingTransaction
         }
     }
 
-    public static void print(String Text)
-    {
-        System.out.println(Text);
-    }
-
-    public int getCardExpiryMonth()
-    {
-        return c.get(Calendar.MONTH);
-    }
-
-    public int getCardExpiryYear()
-    {
-        return c.get(Calendar.YEAR);
-    }
-
     public void calcLOS()
     {
         LOShrs = (c.get(Calendar.HOUR_OF_DAY) - ArriveHrs);

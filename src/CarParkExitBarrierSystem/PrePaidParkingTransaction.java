@@ -82,8 +82,8 @@ public class PrePaidParkingTransaction
             System.out.println("Transaction Number: " + PPTicketSplitter[0] + ", Registration Number: "
                     + PPTicketSplitter[1] + ", CardNumber: " + PPTicketSplitter[2] + ", Arrival Time: "
                     + PPTicketSplitter[3] + ":" + PPTicketSplitter[4] + ", ExpiryTime: " + PPTicketSplitter[5] + ":"
-                    + PPTicketSplitter[6] + ", Date: " + PPTicketSplitter[7] + "/" + PPTicketSplitter[8] + "/"
-                    + PPTicketSplitter[9]);
+                    + PPTicketSplitter[6] + ", DateofTicketPurchasO: " + PPTicketSplitter[7] + "/"
+                    + PPTicketSplitter[8] + "/" + PPTicketSplitter[9] + "\n");
             ticketFound = true;
             ArriveHrs = Integer.parseInt(PPTicketSplitter[3]);
             ArriveMin = Integer.parseInt(PPTicketSplitter[4]);
@@ -110,6 +110,7 @@ public class PrePaidParkingTransaction
          * m.getOpt();
          * }
          */
+
     }
 
 }

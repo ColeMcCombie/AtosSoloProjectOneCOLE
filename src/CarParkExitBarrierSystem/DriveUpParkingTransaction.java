@@ -144,7 +144,13 @@ public class DriveUpParkingTransaction
                     }
                     else
                     {
-                        writeToCentralAuth(false, "n/a");
+                        if (cardDateAccepted == false)
+                        {
+                            writeToCentralAuth(false, "card expired");
+                        }
+                        else
+                            writeToCentralAuth(false, "invalid card number");
+
                         cardDateAccepted = true;
                     }
 

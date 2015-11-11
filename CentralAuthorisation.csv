@@ -1,4 +1,9 @@
-3
+8
 Transaction Number: 1, Transaction Type: D, Card Number: 9999999999999999, Expiry Date: 2/2018, Date Of Transaction: 10/10/2015, request outcome:Pass, + reason: n/a
 Transaction Number: 2, Transaction Type: D, Card Number: 4444666677772222, Expiry Date: 11/2024, Date Of Transaction: 10/10/2015, request outcome:Pass, + reason: n/a
 Transaction Number: 3, Transaction Type: D, Card Number: 1111222233334444, Expiry Date: 2/2102, Date Of Transaction: 10/10/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 4, Transaction Type: D, Card Number: 8888888888888888, Expiry Date: 12/2014, Date Of Transaction: 10/10/2015, request outcome:Fail, + reason: n/a
+Transaction Number: 5, Transaction Type: D, Card Number: 4444444444444444, Expiry Date: 12/2016, Date Of Transaction: 10/10/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 6, Transaction Type: D, Card Number: 1223123412341234, Expiry Date: 12/14, Date Of Transaction: 11/10/2015, request outcome:Fail, + reason: card expired
+Transaction Number: 7, Transaction Type: D, Card Number: 1223123412341234, Expiry Date: 12/14, Date Of Transaction: 11/10/2015, request outcome:Fail, + reason: invalid card number
+Transaction Number: 8, Transaction Type: D, Card Number: 1234123412341234, Expiry Date: 12/2014, Date Of Transaction: 11/10/2015, request outcome:Fail, + reason: card expired

@@ -19,6 +19,8 @@ public class ParkingTransaction
 
     DriveUpParkingTransaction DriveUp = new DriveUpParkingTransaction();
 
+    PrePaidParkingTransaction PrePaid = new PrePaidParkingTransaction();
+
     public ParkingTransaction()
     {
 
@@ -33,7 +35,7 @@ public class ParkingTransaction
 
     public static void main(String[] args)
     {
-
+        System.out.println("Welcome to carpark ticket system!");
         ParkingTransaction m = new ParkingTransaction();
         // Calling getOpt Method.
         m.getOpt();
@@ -42,12 +44,11 @@ public class ParkingTransaction
 
     public void getOpt()
     {
-
-        System.out.println("Welcome to carpark ticket system!");
         System.out.println("Please pick one of the following options:");
         System.out.println("1. Pre-paid Ticket");
         System.out.println("2. DriveUp Ticket");
         System.out.println("3. Pay For Stay");
+        System.out.println("4. End Program");
 
         String opt = sc.next();
 
@@ -55,20 +56,29 @@ public class ParkingTransaction
         {
             // call Pre-paid Ticket method
             System.out.println("Pre-paid Ticket");
+            PrePaid.confirmSelection(sc);
         }
-
-        if (opt.equals("2"))
+        else if (opt.equals("2"))
         {
             // Call Drive up Ticket method
             System.out.println("Drive Up Ticket");
             DriveUp.confirmSelection(sc, true);
 
         }
-        if (opt.equals("3"))
+        else if (opt.equals("3"))
         {
             System.out.println("Pay For Stay");
             DriveUp.confirmSelection(sc, false);
         }
+        else if (opt.equals("4"))
+        {
+
+        }
+        else
+            System.out.println("You have made an invalid selection. Please try again.\n");
+        ParkingTransaction m = new ParkingTransaction();
+        m.getOpt();
+
     }
 
     public void calcLOS()

@@ -11,7 +11,7 @@ public class ReadTicket
 {
     private String Reg;
 
-    private int AmmountOfTickets = 0, ArriveHrs, ArriveMin, ExpiryHr, ExpiryMin;
+    private int AmmountOfTickets = 0, ArriveHrs, ArriveMin;
 
     private boolean isPrePaid;
 

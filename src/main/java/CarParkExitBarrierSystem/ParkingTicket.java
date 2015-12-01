@@ -13,16 +13,11 @@ public class ParkingTicket
 
     private int ArrivalHrs, ArrivalMin;
 
-    private boolean isPrePaid;
-
     private int ExpiryHour, ExpiryMin;
 
     private int lengthOfStayHours;
 
     private int lengthOfStayMinutes;
-
-    private int transactionHour, transactionMinute;
-    // double cost;
 
     // prepaid
     public ParkingTicket(String RegNo, int ArrivalHrs, int ArrivalMin, int ExpiryHour, int ExpiryMin)
@@ -30,7 +25,9 @@ public class ParkingTicket
         this.RegNo = RegNo;
         this.ArrivalHrs = ArrivalHrs;
         this.ArrivalMin = ArrivalMin;
-        this.isPrePaid = true;
+        this.ExpiryHour = ExpiryHour;
+        this.ExpiryMin = ExpiryMin;
+
     }
 
     // driveup parking ticket
@@ -39,7 +36,7 @@ public class ParkingTicket
         this.RegNo = RegNo;
         this.ArrivalHrs = ArrivalHrs;
         this.ArrivalMin = ArrivalMin;
-        this.isPrePaid = false;
+
     }
 
     public ParkingTicket()
@@ -47,6 +44,7 @@ public class ParkingTicket
 
     }
 
+    @Override
     public String toString()
     {
         return "Registration Number: " + RegNo + ", Arrival Time: " + ArrivalHrs + ":" + ArrivalMin;
@@ -58,19 +56,9 @@ public class ParkingTicket
         return c.get(Calendar.HOUR_OF_DAY);
     }
 
-    public void setTransactionHour(int transactionHour)
-    {
-        this.transactionHour = transactionHour;
-    }
-
     public int getTransactionMinute()
     {
         return c.get(Calendar.MINUTE);
-    }
-
-    void setTransactionMinute(int transactionMinute)
-    {
-        this.transactionMinute = transactionMinute;
     }
 
     public int getExpiryHour()

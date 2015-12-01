@@ -4,8 +4,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-public class CardChecker
+public class CardDetailChecker
 {
+
     public boolean checkCardDigits(String CardNo)
     {
         if (CardNo.length() == 16)

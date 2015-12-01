@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 
 public class OverstayedPrePaidParkingTransaction extends ParkingTicket
 {
-    private int ExpiryHour, ExpiryMin, ArriveHrs, ArriveMin, timestayed;
+    private int ExpiryHour, ExpiryMin, ArriveHrs, ArriveMin;
 
     String Reg;
 
@@ -20,6 +20,11 @@ public class OverstayedPrePaidParkingTransaction extends ParkingTicket
         this.ArriveMin = ArriveMin;
         this.ExpiryHour = ExpiryHour;
         this.ExpiryMin = ExpiryMin;
+
+    }
+
+    public void createTransaction()
+    {
         calculateCost();
         calculateDiscount();
         System.out.println(discount);
@@ -27,6 +32,7 @@ public class OverstayedPrePaidParkingTransaction extends ParkingTicket
 
     public OverstayedPrePaidParkingTransaction()
     {
+        // Parking transaction requires access to isOverstayed method before passing into constructor
     }
 
     public boolean isOverstayed()
@@ -49,7 +55,7 @@ public class OverstayedPrePaidParkingTransaction extends ParkingTicket
         ParkingTransaction trans = new ParkingTransaction(this.Reg, this.ArriveHrs, this.ArriveMin, this.ExpiryHour,
                 this.ExpiryMin);
         trans.calcLOS();
-        trans.calculateCostPrePaidOver(ArriveHrs, ArriveMin, ExpiryHour, ExpiryMin);
+        trans.calculateCostPrePaidOver(ExpiryHour, ExpiryMin);
         cost = trans.getCost();
 
     }
@@ -61,7 +67,7 @@ public class OverstayedPrePaidParkingTransaction extends ParkingTicket
 
     public double calculateDiscount()
     {
-        discount = ((getCost()) * 0.90);
+        discount = (getCost()) * 0.90;
         return discount;
     }
 

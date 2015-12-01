@@ -8,13 +8,11 @@ public class ParkingTransaction
 {
     static Scanner sc = new Scanner(System.in);
 
-    private int totalMins = 1;
+    int totalMins = 1;
 
     DriveUpParkingTransaction DriveUp = new DriveUpParkingTransaction();
 
     ParkingTicket pt;
-    // static OverstayedPrePaidParkingTransaction OverStay = new OverstayedPrePaidParkingTransaction(UserReg, ArriveHrs,
-    // ArriveHrs);
 
     PrePaidParkingTransaction PrePaid = new PrePaidParkingTransaction();
 
@@ -24,10 +22,6 @@ public class ParkingTransaction
 
     public static void main(String[] args)
     {
-
-        // create parking ticket
-        // parking ticket validator
-        // try catch (parkingticketexception (e))
 
         System.out.println("Welcome to carpark ticket system!");
         ParkingTransaction m = new ParkingTransaction();
@@ -39,8 +33,6 @@ public class ParkingTransaction
     private Calendar c = new GregorianCalendar();
 
     private String reg;
-
-    private int transactionHour, transactionMinute;
 
     private int arriveHour;
 
@@ -69,24 +61,24 @@ public class ParkingTransaction
 
         String opt = sc.next();
 
-        if (opt.equals("1"))
+        if ("1".equals(opt))
         {
             // call Pre-paid Ticket method
             System.out.println("Pre-paid Ticket");
             PrePaid.confirmSelection(sc);
         }
-        else if (opt.equals("2"))
+        else if ("2".equals(opt))
         {
             // Call Drive up Ticket method
             System.out.println("Drive Up Ticket");
             DriveUp.confirmSelection(sc, true);
 
         }
-        else if (opt.equals("3"))
+        else if ("3".equals(opt))
         {
             System.out.println("Have you pre paid?");
             String opt2 = sc.next();
-            if (opt2.equals("yes") || opt2.equals("Yes"))
+            if ("yes".equalsIgnoreCase(opt2))
             {
                 PrePaid.readPrePaidTicket(false);
                 arriveHour = PrePaid.getArrivalHour();
@@ -95,36 +87,34 @@ public class ParkingTransaction
                 expiryMinute = PrePaid.getExpiryMinute();
                 reg = PrePaid.getReg();
 
-                // calcLOS();
-
                 if (OverStay.isOverstayed())
                 {
                     OverstayedPrePaidParkingTransaction overStayed = new OverstayedPrePaidParkingTransaction(reg,
                             arriveHour, arriveMinute, expiryHour, expiryMinute);
+                    overStayed.createTransaction();
                 }
                 else
                 {
-
+                    System.out.println("Error. Returning to main menu.\n");
+                    getOpt();
                 }
 
             }
-            else if (opt2.equals("no") || opt2.equals("No"))
+            else if ("no".equalsIgnoreCase(opt2))
             {
                 System.out.println("Pay For Stay");
                 DriveUp.confirmSelection(sc, false);
             }
 
         }
-        else if (opt.equals("4"))
+        else if ("4".equals(opt))
         {
             System.out.println("Have" + " a good day!!");
-            // System.exit(0);
 
         }
         else
         {
             System.out.println("You have made an invalid selection. Please try again.\n");
-            ParkingTransaction m = new ParkingTransaction();
             getOpt();
         }
 
@@ -156,8 +146,8 @@ public class ParkingTransaction
     public void calcLOS()
     {
 
-        lengthOfStayHours = (c.get(Calendar.HOUR_OF_DAY) - arriveHour);
-        lengthOfStayMinutes = (c.get(Calendar.MINUTE) - arriveMinute);
+        lengthOfStayHours = c.get(Calendar.HOUR_OF_DAY) - arriveHour;
+        lengthOfStayMinutes = c.get(Calendar.MINUTE) - arriveMinute;
 
         if (lengthOfStayMinutes < 0)
         {
@@ -183,11 +173,11 @@ public class ParkingTransaction
         }
     }
 
-    public void calculateCostPrePaidOver(int ArriveHrs, int ArriveMin, int ExpiryHour, int ExpiryMin)
+    public void calculateCostPrePaidOver(int ExpiryHour, int ExpiryMin)
     {
-        int ChargeableHour = ((c.get(Calendar.HOUR_OF_DAY) - (ExpiryHour)));
+        int ChargeableHour = c.get(Calendar.HOUR_OF_DAY) - (ExpiryHour);
 
-        int ChargeableMinute = ((c.get(Calendar.MINUTE) - (ExpiryMin)));
+        int ChargeableMinute = c.get(Calendar.MINUTE) - (ExpiryMin);
 
         if (ChargeableMinute < 0)
         {
@@ -233,7 +223,7 @@ public class ParkingTransaction
     public void weekdayCalc()
     {
 
-        totalMins = ((lengthOfStayHours * 60) + lengthOfStayMinutes);
+        totalMins = (lengthOfStayHours * 60) + lengthOfStayMinutes;
         weekdayGetCharge();
     }
 
@@ -267,7 +257,7 @@ public class ParkingTransaction
 
     public void weekendCalc()
     {
-        int totalMins = ((lengthOfStayHours * 60) + lengthOfStayMinutes);
+        totalMins = (lengthOfStayHours * 60) + lengthOfStayMinutes;
         weekendGetCharge();
 
     }

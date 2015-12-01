@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 
 public class FileWriter
 {
-    public void writeToFile(String Reg, int ArriveHrs, int ArriveMin, int ExpiryHr, int ExpiryMin, boolean isPrePaid)
+    public void writeToFile(String Reg, int ArriveHrs, int ArriveMin)
     {
         TicketReader read = new TicketReader();
         int AmmountOfTickets = read.getTicketAmmount();

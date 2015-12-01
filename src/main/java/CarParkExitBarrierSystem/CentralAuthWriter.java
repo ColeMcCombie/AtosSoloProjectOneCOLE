@@ -22,7 +22,6 @@ public class CentralAuthWriter
 
         int AmmountOfTrans = 0;
         String[] CSVdetails;
-        String[] TicketSplitter = new String[5];
         try
         {
             Scanner r = new Scanner(new File(
@@ -53,9 +52,9 @@ public class CentralAuthWriter
         }
         catch (FileNotFoundException e)
         {
+            e.printStackTrace();
             throw new RuntimeException(e);
-            // e.printStackTrace();
-            // throw runtimeexception
+
         }
     }
 }

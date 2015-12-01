@@ -9,50 +9,50 @@ import java.util.Scanner;
 
 public class CentralAuthWriter
 {
-    public void writeToCentralAuth(boolean isPass, String Reason, String CardNo, int expMonth, int expYear)
+    public void writeToCentralAuth(boolean isPass, String reason, String cardNo, int expiryMonth, int expiryYear)
     {
-        String Passed;
+        String passed;
 
         if (isPass)
         {
-            Passed = "Pass";
+            passed = "Pass";
         }
         else
-            Passed = "Fail";
+            passed = "Fail";
 
-        int AmmountOfTrans = 0;
+        int ammountOfTrans = 0;
         String[] CSVdetails;
+
         try
         {
             Scanner r = new Scanner(new File(
                     "C:\\_development\\workspaces\\epi_tutorials\\AtosSoloProjectOneCOLE\\src\\main\\resources\\CentralAuthorisation.csv"));
-            AmmountOfTrans = Integer.parseInt(r.nextLine());
-            CSVdetails = new String[AmmountOfTrans];
-            for (int tickets = 0; tickets < AmmountOfTrans; tickets++)
+            ammountOfTrans = Integer.parseInt(r.nextLine());
+            CSVdetails = new String[ammountOfTrans];
+            for (int tickets = 0; tickets < ammountOfTrans; tickets++)
             {
                 CSVdetails[tickets] = r.nextLine(); // reads information and puts into Array
             }
             r.close();
             PrintWriter wr = new PrintWriter(new File(
                     "C:\\_development\\workspaces\\epi_tutorials\\AtosSoloProjectOneCOLE\\src\\main\\resources\\CentralAuthorisation.csv"));
-            AmmountOfTrans += 1;
-            wr.println(AmmountOfTrans);
-            for (int tickets = 0; tickets < (AmmountOfTrans - 1); tickets++)
+            ammountOfTrans += 1;
+            wr.println(ammountOfTrans);
+            for (int tickets = 0; tickets < (ammountOfTrans - 1); tickets++)
             {
                 wr.println(CSVdetails[tickets]); // reads information and passes to ticket
             }
             Calendar c = new GregorianCalendar();
-            int Day = c.get(Calendar.DAY_OF_MONTH), Month = c.get(Calendar.MONTH), Year = c.get(Calendar.YEAR);
-            String DOT = Day + "/" + Month + "/" + Year;
-            wr.println("Transaction Number: " + AmmountOfTrans + ", Transaction Type: D, Card Number: " + CardNo
-                    + ", Expiry Date: " + expMonth + "/" + expYear + ", Date Of Transaction: " + DOT
-                    + ", request outcome:" + Passed + ", + reason: " + Reason);
+            int day = c.get(Calendar.DAY_OF_MONTH), Month = c.get(Calendar.MONTH), Year = c.get(Calendar.YEAR);
+            String dateOfTrans = day + "/" + Month + "/" + Year;
+            wr.println("Transaction Number: " + ammountOfTrans + ", Transaction Type: D, Card Number: " + cardNo
+                    + ", Expiry Date: " + expiryMonth + "/" + expiryYear + ", Date Of Transaction: " + dateOfTrans
+                    + ", request outcome:" + passed + ", + reason: " + reason);
             wr.close();
 
         }
         catch (FileNotFoundException e)
         {
-            e.printStackTrace();
             throw new RuntimeException(e);
 
         }

@@ -8,25 +8,25 @@ import java.util.GregorianCalendar;
 
 public class FileWriter
 {
-    public void writeToFile(String Reg, int ArriveHrs, int ArriveMin)
+    public void writeToFile(String reg, int arriveHour, int arriveMinute)
     {
         TicketReader read = new TicketReader();
-        int AmmountOfTickets = read.getTicketAmmount();
-        String[] TicketDetails = read.getTicketDetails();
+        int ammountOfTickets = read.getTicketAmmount();
+        String[] ticketDetails = read.getTicketDetails();
         try
         {
             PrintWriter wr = new PrintWriter(new File(
                     "C:\\_development\\workspaces\\epi_tutorials\\AtosSoloProjectOneCOLE\\src\\main\\resources\\ParkingTicket.csv"));
-            AmmountOfTickets += 1;
-            wr.println(AmmountOfTickets);
-            for (int tickets = 0; tickets < (AmmountOfTickets - 1); tickets++)
+            ammountOfTickets += 1;
+            wr.println(ammountOfTickets);
+            for (int tickets = 0; tickets < (ammountOfTickets - 1); tickets++)
             {
-                wr.println(TicketDetails[tickets]); // reads information and passes to ticket
+                wr.println(ticketDetails[tickets]); // reads information and passes to ticket
             }
             Calendar c = new GregorianCalendar();
-            int Day = c.get(Calendar.DAY_OF_MONTH), Month = c.get(Calendar.MONTH), Year = c.get(Calendar.YEAR);
-            String DOT = Day + "/" + Month + "/" + Year;
-            wr.println(AmmountOfTickets + ", " + Reg + ", " + DOT + ", " + ArriveHrs + ", " + ArriveMin);
+            int day = c.get(Calendar.DAY_OF_MONTH), month = c.get(Calendar.MONTH), year = c.get(Calendar.YEAR);
+            String dateOfTrans = day + "/" + month + "/" + year;
+            wr.println(ammountOfTickets + ", " + reg + ", " + dateOfTrans + ", " + arriveHour + ", " + arriveMinute);
             wr.close();
         }
         catch (FileNotFoundException e)

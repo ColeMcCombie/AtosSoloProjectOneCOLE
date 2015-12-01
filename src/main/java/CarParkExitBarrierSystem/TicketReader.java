@@ -6,56 +6,51 @@ import java.util.Scanner;
 
 public class TicketReader
 {
-    private String Reg;
 
-    public int AmmountOfTickets = 0, ArriveHrs, ArriveMin;
+    int ammountOfTickets = 0, arriveHour, arriveMinute;
 
-    private boolean isPrePaid;
+    private String[] ticketDetails;
 
-    private String[] TicketDetails;
-
-    public void readFile(String REG, boolean payForTicket, boolean isPrePaid)
+    public void readFile(String reg, boolean payForTicket)
     {
-        AmmountOfTickets = 0;
-        String[] TicketSplitter = new String[5];
+        ammountOfTickets = 0;
         try
         {
             Scanner r = new Scanner(new File(
                     "C:\\_development\\workspaces\\epi_tutorials\\AtosSoloProjectOneCOLE\\src\\main\\resources\\ParkingTicket.csv"));
-            AmmountOfTickets = Integer.parseInt(r.nextLine());
-            TicketDetails = new String[AmmountOfTickets];
-            for (int tickets = 0; tickets < AmmountOfTickets; tickets++)
+            ammountOfTickets = Integer.parseInt(r.nextLine());
+            ticketDetails = new String[ammountOfTickets];
+            for (int tickets = 0; tickets < ammountOfTickets; tickets++)
             {
-                TicketDetails[tickets] = r.nextLine(); // reads information and puts into Array
+                ticketDetails[tickets] = r.nextLine(); // reads information and puts into Array
             }
             r.close();
         }
         catch (FileNotFoundException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new RuntimeException("File was not found");
         }
         // write
         if (payForTicket)
         {
             boolean ticketfound = false;
-            for (int tickets = 0; tickets < TicketDetails.length; tickets++)
+            for (int tickets = 0; tickets < ticketDetails.length; tickets++)
             {
-                TicketSplitter = TicketDetails[tickets].split(", ");
-                if (REG.equals(TicketSplitter[1]))
+                String[] ticketSplitter = ticketDetails[tickets].split(", ");
+                if (reg.equals(ticketSplitter[1]))
                 {
                     System.out.println("Your ticket has been found!");
-                    System.out.println("Transaction Number: " + TicketSplitter[0] + ", Registration Number: "
-                            + TicketSplitter[1] + ", Date: " + TicketSplitter[2] + ", Arrival Time: "
-                            + TicketSplitter[3] + ":" + TicketSplitter[4]);
+                    System.out.println("Transaction Number: " + ticketSplitter[0] + ", Registration Number: "
+                            + ticketSplitter[1] + ", Date: " + ticketSplitter[2] + ", Arrival Time: "
+                            + ticketSplitter[3] + ":" + ticketSplitter[4]);
                     ticketfound = true;
                 }
             }
 
             if (ticketfound)
             {
-                ParkingTransaction PT = new ParkingTransaction(Reg, ArriveHrs, ArriveMin);
-                PT.calcLOS();
+                ParkingTransaction PT = new ParkingTransaction(reg, arriveHour, arriveMinute);
+                PT.calcLengthOfStay();
                 PT.calculateCost();
                 System.out.println(PT.getCost());
 
@@ -73,12 +68,12 @@ public class TicketReader
 
     public int getTicketAmmount()
     {
-        return AmmountOfTickets;
+        return ammountOfTickets;
     }
 
     public String[] getTicketDetails()
     {
-        return TicketDetails;
+        return ticketDetails;
     }
 
 }

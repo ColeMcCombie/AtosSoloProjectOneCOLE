@@ -80,7 +80,7 @@ public class ParkingTransaction
             String opt2 = sc.next();
             if ("yes".equalsIgnoreCase(opt2))
             {
-                PrePaid.readPrePaidTicket(false);
+                PrePaid.readPrePaidTicket();
                 arriveHour = PrePaid.getArrivalHour();
                 arriveMinute = PrePaid.getArrivalMinute();
                 expiryHour = PrePaid.getExpiryHour();
@@ -143,7 +143,7 @@ public class ParkingTransaction
         this.arriveMinute = ArriveMin;
     }
 
-    public void calcLOS()
+    public void calcLengthOfStay()
     {
 
         lengthOfStayHours = c.get(Calendar.HOUR_OF_DAY) - arriveHour;
@@ -260,16 +260,6 @@ public class ParkingTransaction
         totalMins = (lengthOfStayHours * 60) + lengthOfStayMinutes;
         weekendGetCharge();
 
-    }
-
-    void setArrivalHour(int ArriveHrs)
-    {
-        this.arriveHour = ArriveHrs;
-    }
-
-    void setArrivalMinute(int arrivalMinute)
-    {
-        this.arriveMinute = arrivalMinute;
     }
 
 }

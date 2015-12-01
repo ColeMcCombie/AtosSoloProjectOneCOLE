@@ -6,20 +6,21 @@ import java.util.GregorianCalendar;
 
 public class OverstayedPrePaidParkingTransaction extends ParkingTicket
 {
-    private int ExpiryHour, ExpiryMin, ArriveHrs, ArriveMin;
+    private int expiryHour, expiryMinute, arriveHour, arriveMinute;
 
-    String Reg;
+    String reg;
 
     double cost, discount;
 
-    public OverstayedPrePaidParkingTransaction(String Reg, int ArriveHrs, int ArriveMin, int ExpiryHour, int ExpiryMin)
+    public OverstayedPrePaidParkingTransaction(String reg, int arriveHour, int arriveMinute, int expiryHour,
+            int expiryMinute)
     {
-        super(Reg, ArriveHrs, ArriveMin, ExpiryHour, ExpiryMin);
-        this.Reg = Reg;
-        this.ArriveHrs = ArriveHrs;
-        this.ArriveMin = ArriveMin;
-        this.ExpiryHour = ExpiryHour;
-        this.ExpiryMin = ExpiryMin;
+        super(reg, arriveHour, arriveMinute, expiryHour, expiryMinute);
+        this.reg = reg;
+        this.arriveHour = arriveHour;
+        this.arriveMinute = arriveMinute;
+        this.expiryHour = expiryHour;
+        this.expiryMinute = expiryMinute;
 
     }
 
@@ -39,8 +40,8 @@ public class OverstayedPrePaidParkingTransaction extends ParkingTicket
     {
         Calendar c = new GregorianCalendar();
 
-        if ((ExpiryHour < c.get(Calendar.HOUR_OF_DAY))
-                || ((ExpiryHour == c.get(Calendar.HOUR_OF_DAY)) && (ExpiryMin < c.get(Calendar.MINUTE))))
+        if ((expiryHour < c.get(Calendar.HOUR_OF_DAY))
+                || ((expiryHour == c.get(Calendar.HOUR_OF_DAY)) && (expiryMinute < c.get(Calendar.MINUTE))))
         {
             return true;
         }
@@ -52,10 +53,10 @@ public class OverstayedPrePaidParkingTransaction extends ParkingTicket
     private void calculateCost()
     {
 
-        ParkingTransaction trans = new ParkingTransaction(this.Reg, this.ArriveHrs, this.ArriveMin, this.ExpiryHour,
-                this.ExpiryMin);
-        trans.calcLOS();
-        trans.calculateCostPrePaidOver(ExpiryHour, ExpiryMin);
+        ParkingTransaction trans = new ParkingTransaction(this.reg, this.arriveHour, this.arriveMinute, this.expiryHour,
+                this.expiryMinute);
+        trans.calcLengthOfStay();
+        trans.calculateCostPrePaidOver(expiryHour, expiryMinute);
         cost = trans.getCost();
 
     }

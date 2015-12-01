@@ -6,15 +6,15 @@ import java.util.Scanner;
 
 public class PrePaidParkingTransaction
 {
-    private int AmmountOfTickets = 0, ArriveHrs, ArriveMin, ExpiryHour, ExpiryMin;
+    private int ammountOfTickets = 0, arriveHour, arriveMinute, expiryHour, expiryMinute;
 
-    String Reg, CardNo;
+    String reg, cardNo;
 
-    // private boolean isPrePaid;
+    boolean ticketFound = false;
 
-    public String[] TicketDetails;
+    String[] ticketDetails;
 
-    public String[] PPTicketSplitter = new String[9];
+    String[] PPTicketSplitter = new String[9];
 
     public void confirmSelection(Scanner sc)
     {
@@ -23,13 +23,12 @@ public class PrePaidParkingTransaction
 
         String opt = sc.next();
 
-        if (opt.equals("yes") || opt.equals("Yes"))
+        if ("yes".equalsIgnoreCase(opt))
         {
             System.out.println("Successfully Selected Yes");
-            PrePaidParkingTransaction PrePaid = new PrePaidParkingTransaction();
-            PrePaid.readPrePaidTicket(false);
+            readPrePaidTicket();
         }
-        if (opt.equals("No") || opt.equals("no"))
+        if ("no".equalsIgnoreCase(opt))
         {
             System.out.println("Successfully selected No");
             ParkingTransaction m = new ParkingTransaction();
@@ -39,29 +38,29 @@ public class PrePaidParkingTransaction
 
     }
 
-    public void readPrePaidTicket(boolean ticketFound)
+    public void readPrePaidTicket()
     {
 
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Registration Number: ");
-        Reg = sc.nextLine();
+        reg = sc.nextLine();
         System.out.println("Enter Card Number: ");
-        CardNo = sc.nextLine();
+        cardNo = sc.nextLine();
 
-        AmmountOfTickets = 0;
+        ammountOfTickets = 0;
         try
         {
             Scanner r = new Scanner(new File(
                     "C:\\_development\\workspaces\\epi_tutorials\\AtosSoloProjectOneCOLE\\src\\main\\resources\\PrePaidTicket.csv"));
-            AmmountOfTickets = Integer.parseInt(r.nextLine());
-            TicketDetails = new String[AmmountOfTickets];
-            for (int tickets = 0; tickets < AmmountOfTickets; tickets++)
+            ammountOfTickets = Integer.parseInt(r.nextLine());
+            ticketDetails = new String[ammountOfTickets];
+            for (int tickets = 0; tickets < ammountOfTickets; tickets++)
             {
 
-                TicketDetails[tickets] = r.nextLine(); // reads information and puts into Array
-                PPTicketSplitter = TicketDetails[tickets].split(", ");
-                if (Reg.equals(PPTicketSplitter[1]) && CardNo.equals(PPTicketSplitter[2]))
+                ticketDetails[tickets] = r.nextLine(); // reads information and puts into Array
+                PPTicketSplitter = ticketDetails[tickets].split(", ");
+                if (reg.equals(PPTicketSplitter[1]) && cardNo.equals(PPTicketSplitter[2]))
                 {
                     ticketFound = true;
                     break;
@@ -72,8 +71,7 @@ public class PrePaidParkingTransaction
         }
         catch (FileNotFoundException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new RuntimeException("File was not found");
         }
         // write
         if (ticketFound)
@@ -84,14 +82,13 @@ public class PrePaidParkingTransaction
                     + PPTicketSplitter[3] + ":" + PPTicketSplitter[4] + ", ExpiryTime: " + PPTicketSplitter[5] + ":"
                     + PPTicketSplitter[6] + ", DateofTicketPurchasO: " + PPTicketSplitter[7] + "/" + PPTicketSplitter[8]
                     + "/" + PPTicketSplitter[9] + "\n");
-            ticketFound = true;
-            ArriveHrs = Integer.parseInt(PPTicketSplitter[3]);
-            ArriveMin = Integer.parseInt(PPTicketSplitter[4]);
-            ExpiryHour = Integer.parseInt(PPTicketSplitter[5]);
-            ExpiryMin = Integer.parseInt(PPTicketSplitter[6]);
-            ParkingTransaction PT = new ParkingTransaction(Reg, ArriveHrs, ArriveMin);
+            arriveHour = Integer.parseInt(PPTicketSplitter[3]);
+            arriveMinute = Integer.parseInt(PPTicketSplitter[4]);
+            expiryHour = Integer.parseInt(PPTicketSplitter[5]);
+            expiryMinute = Integer.parseInt(PPTicketSplitter[6]);
+            ParkingTransaction PT = new ParkingTransaction(reg, arriveHour, arriveMinute);
 
-            PT.calcLOS();
+            PT.calcLengthOfStay();
             PT.calculateCost();
             System.out.println(PT.getCost());
 
@@ -107,27 +104,27 @@ public class PrePaidParkingTransaction
 
     public String getReg()
     {
-        return Reg;
+        return reg;
     }
 
     public int getArrivalHour()
     {
-        return ArriveHrs;
+        return arriveHour;
     }
 
     public int getArrivalMinute()
     {
-        return ArriveMin;
+        return arriveMinute;
     }
 
     public int getExpiryHour()
     {
-        return ExpiryHour;
+        return expiryHour;
     }
 
     public int getExpiryMinute()
     {
-        return ExpiryMin;
+        return expiryMinute;
     }
 
 }

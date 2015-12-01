@@ -9,34 +9,32 @@ public class ParkingTicket
 
     Calendar c = new GregorianCalendar();
 
-    private String RegNo;
+    private String reg;
 
-    private int ArrivalHrs, ArrivalMin;
+    private int arriveHour, arriveMinute;
 
-    private int ExpiryHour, ExpiryMin;
+    private int expiryHour, expiryMinute;
 
     private int lengthOfStayHours;
 
     private int lengthOfStayMinutes;
 
     // prepaid
-    public ParkingTicket(String RegNo, int ArrivalHrs, int ArrivalMin, int ExpiryHour, int ExpiryMin)
+    public ParkingTicket(String reg, int arriveHour, int arriveMinute, int expiryHour, int expiryMinute)
     {
-        this.RegNo = RegNo;
-        this.ArrivalHrs = ArrivalHrs;
-        this.ArrivalMin = ArrivalMin;
-        this.ExpiryHour = ExpiryHour;
-        this.ExpiryMin = ExpiryMin;
-
+        this.reg = reg;
+        this.arriveHour = arriveHour;
+        this.arriveMinute = arriveMinute;
+        this.expiryHour = expiryHour;
+        this.expiryMinute = expiryMinute;
     }
 
     // driveup parking ticket
-    public ParkingTicket(String RegNo, int ArrivalHrs, int ArrivalMin)
+    public ParkingTicket(String reg, int arriveHour, int arriveMinute)
     {
-        this.RegNo = RegNo;
-        this.ArrivalHrs = ArrivalHrs;
-        this.ArrivalMin = ArrivalMin;
-
+        this.reg = reg;
+        this.arriveHour = arriveHour;
+        this.arriveMinute = arriveMinute;
     }
 
     public ParkingTicket()
@@ -47,7 +45,7 @@ public class ParkingTicket
     @Override
     public String toString()
     {
-        return "Registration Number: " + RegNo + ", Arrival Time: " + ArrivalHrs + ":" + ArrivalMin;
+        return "Registration Number: " + reg + ", Arrival Time: " + arriveHour + ":" + arriveMinute;
 
     }
 
@@ -63,12 +61,12 @@ public class ParkingTicket
 
     public int getExpiryHour()
     {
-        return ExpiryHour;
+        return expiryHour;
     }
 
     public int getExpiryMinute()
     {
-        return ExpiryMin;
+        return expiryMinute;
     }
 
     public int getLengthOfStayHours()
@@ -79,37 +77,6 @@ public class ParkingTicket
     public int getLengthOfStayMinutes()
     {
         return lengthOfStayMinutes;
-    }
-
-    public void setLengthOfStayMinutes(int lengthOfStayMinutes)
-    {
-        this.lengthOfStayMinutes = lengthOfStayMinutes;
-    }
-
-    public void setLengthOfStayHours(int lengthOfStayHours)
-    {
-        this.lengthOfStayHours = lengthOfStayHours;
-    }
-
-    public int workOutTheDay(Calendar currentDate)
-    {
-        return currentDate.get(Calendar.DAY_OF_WEEK);
-    }
-
-    public boolean isItAWeekend(Calendar currentDate)
-    {
-        int dayCalculation = workOutTheDay(currentDate);
-        if (dayCalculation == Calendar.SUNDAY || dayCalculation == Calendar.SATURDAY)
-        {
-            return true;
-
-        }
-
-        else
-        {
-            return false;
-        }
-
     }
 
 }

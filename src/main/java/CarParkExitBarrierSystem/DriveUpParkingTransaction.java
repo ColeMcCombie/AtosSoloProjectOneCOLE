@@ -6,9 +6,11 @@ import java.util.Scanner;
 
 public class DriveUpParkingTransaction
 {
-    private String CardNo = "";
+    private String cardNo = "";
 
-    static int expMonth, expYear;
+    String reg;
+
+    static int expiryMonth, expiryYear;
 
     public void confirmSelection(Scanner sc, boolean createTicket)
     {
@@ -52,17 +54,17 @@ public class DriveUpParkingTransaction
     {
         Scanner sc = new Scanner(System.in);
         Calendar c = new GregorianCalendar();
-        int hr = c.get(Calendar.HOUR_OF_DAY), min = c.get(Calendar.MINUTE);
+        int hour = c.get(Calendar.HOUR_OF_DAY), minute = c.get(Calendar.MINUTE);
         System.out.println("Enter Registration Number: ");
-        String UserReg = sc.nextLine();
-        ParkingTicket DUT = new ParkingTicket(UserReg, hr, min);
+        reg = sc.nextLine();
+        ParkingTicket DUT = new ParkingTicket(reg, hour, minute);
         // DUT = drive up ticket
         System.out.println(DUT.toString());
         TicketReader read = new TicketReader();
         FileWriter write = new FileWriter();
 
-        read.readFile(UserReg, false, false);
-        write.writeToFile(UserReg, hr, min);
+        read.readFile(reg, false);
+        write.writeToFile(reg, hour, minute);
     }
 
     public void payForTicket()
@@ -72,22 +74,22 @@ public class DriveUpParkingTransaction
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Registration Number: ");
-        String UserReg = sc.nextLine();
+        reg = sc.nextLine();
         TicketReader PFT = new TicketReader();
-        PFT.readFile(UserReg, true, false);
+        PFT.readFile(reg, true);
         boolean cardAccepted = false;
         do
         {
 
             boolean cardDateAccepted = false;
             System.out.println("Please input Card Number: ");
-            CardNo = sc.nextLine();
-            if (checker.checkCardDigits(CardNo))
+            cardNo = sc.nextLine();
+            if (checker.checkCardDigits(cardNo))
             {
                 System.out.println("Card Number accepted! ");
                 do
                 {
-                    if (checker.checkCardExpiry(expMonth, expYear))
+                    if (checker.checkCardExpiry())
                     {
                         cardDateAccepted = true;
                         cardAccepted = true;
@@ -96,10 +98,10 @@ public class DriveUpParkingTransaction
                     {
                         if (cardDateAccepted == false)
                         {
-                            caw.writeToCentralAuth(false, "card expired", CardNo, expMonth, expYear);
+                            caw.writeToCentralAuth(false, "card expired", cardNo, expiryMonth, expiryYear);
                         }
                         else
-                            caw.writeToCentralAuth(false, "invalid card number", CardNo, expMonth, expYear);
+                            caw.writeToCentralAuth(false, "invalid card number", cardNo, expiryMonth, expiryYear);
 
                         cardDateAccepted = true;
                     }
@@ -113,7 +115,7 @@ public class DriveUpParkingTransaction
         }
         while (cardAccepted == false);
         System.out.println("Card has been accepted and processed! Payment Complete!\n");
-        caw.writeToCentralAuth(true, "n/a", CardNo, expMonth, expYear);
+        caw.writeToCentralAuth(true, "n/a", cardNo, expiryMonth, expiryYear);
 
         ParkingTransaction m = new ParkingTransaction();
         m.getOpt();

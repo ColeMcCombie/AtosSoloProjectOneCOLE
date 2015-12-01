@@ -7,9 +7,9 @@ import java.util.Scanner;
 public class CardDetailChecker
 {
 
-    public boolean checkCardDigits(String CardNo)
+    public boolean checkCardDigits(String cardNo)
     {
-        if (CardNo.length() == 16)
+        if (cardNo.length() == 16)
         {
             return true;
         }
@@ -17,14 +17,14 @@ public class CardDetailChecker
             return false;
     }
 
-    public boolean checkCardExpiry(int expiryMonth, int expiryYear)
+    public boolean checkCardExpiry()
     {
         Scanner sc = new Scanner(System.in);
         Calendar c = new GregorianCalendar();
         System.out.println("Enter Expiry Month: (mm)");
-        expiryMonth = sc.nextInt();
+        int expiryMonth = sc.nextInt();
         System.out.println("Enter Expiry Year: (YYYY)");
-        expiryYear = sc.nextInt();
+        int expiryYear = sc.nextInt();
 
         if (expiryYear >= c.get(Calendar.YEAR)
                 || expiryYear == c.get(Calendar.YEAR) && expiryMonth >= (c.get(Calendar.MONTH) + 1))

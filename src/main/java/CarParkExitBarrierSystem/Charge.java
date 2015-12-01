@@ -27,16 +27,16 @@ public enum Charge
     WEUpTo24(
             12.00);
 
-    private double charge;
+    private double tarrif;
 
-    private Charge(double charge)
+    private Charge(double tarrif)
     {
-        this.charge = charge;
+        this.tarrif = tarrif;
     }
 
     public double getCharge()
     {
-        return charge;
+        return tarrif;
 
     }
 

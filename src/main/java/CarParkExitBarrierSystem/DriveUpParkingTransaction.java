@@ -1,8 +1,5 @@
 package CarParkExitBarrierSystem;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -11,7 +8,7 @@ public class DriveUpParkingTransaction
 {
     private String CardNo = "";
 
-    private int expMonth, expYear;
+    public int expMonth, expYear;
 
     public void confirmSelection(Scanner sc, boolean createTicket)
     {
@@ -51,53 +48,6 @@ public class DriveUpParkingTransaction
         }
     }
 
-    public void writeToCentralAuth(boolean isPass, String Reason)
-    {
-        String Passed;
-
-        if (isPass)
-        {
-            Passed = "Pass";
-        }
-        else
-            Passed = "Fail";
-
-        int AmmountOfTrans = 0;
-        String[] CSVdetails;
-        String[] TicketSplitter = new String[5];
-        try
-        {
-            Scanner r = new Scanner(new File("CentralAuthorisation.csv"));
-            AmmountOfTrans = Integer.parseInt(r.nextLine());
-            CSVdetails = new String[AmmountOfTrans];
-            for (int tickets = 0; tickets < AmmountOfTrans; tickets++)
-            {
-                CSVdetails[tickets] = r.nextLine(); // reads information and puts into Array
-            }
-            r.close();
-            PrintWriter wr = new PrintWriter(new File("CentralAuthorisation.csv"));
-            AmmountOfTrans += 1;
-            wr.println(AmmountOfTrans);
-            for (int tickets = 0; tickets < (AmmountOfTrans - 1); tickets++)
-            {
-                wr.println(CSVdetails[tickets]); // reads information and passes to ticket
-            }
-            Calendar c = new GregorianCalendar();
-            int Day = c.get(Calendar.DAY_OF_MONTH), Month = c.get(Calendar.MONTH), Year = c.get(Calendar.YEAR);
-            String DOT = Day + "/" + Month + "/" + Year;
-            wr.println("Transaction Number: " + AmmountOfTrans + ", Transaction Type: D, Card Number: " + CardNo
-                    + ", Expiry Date: " + expMonth + "/" + expYear + ", Date Of Transaction: " + DOT
-                    + ", request outcome:" + Passed + ", + reason: " + Reason);
-            wr.close();
-
-        }
-        catch (FileNotFoundException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
     public void getTicket()
     {
         Scanner sc = new Scanner(System.in);
@@ -109,35 +59,37 @@ public class DriveUpParkingTransaction
         ParkingTicket DUT = new ParkingTicket(UserReg, hr, min);
         // DUT = drive up ticket
         System.out.println(DUT.toString());
-        ReadTicket X = new ReadTicket();
-        X.readFile(UserReg, false);
-        X.writeToFile(UserReg, hr, min, 0, 0, false);
+        TicketReader read = new TicketReader();
+        FileWriter write = new FileWriter();
+
+        read.readFile(UserReg, false, false);
+        write.writeToFile(UserReg, hr, min, 0, 0, false);
     }
 
     public void payForTicket()
     {
+        CentralAuthWriter caw = new CentralAuthWriter();
+        CardChecker checker = new CardChecker();
 
         Scanner sc = new Scanner(System.in);
         String UserReg = "";
         System.out.println("Enter Registration Number: ");
         UserReg = sc.nextLine();
-        ReadTicket PFT = new ReadTicket();
-        PFT.readFile(UserReg, true);
-
+        TicketReader PFT = new TicketReader();
+        PFT.readFile(UserReg, true, false);
         boolean cardAccepted = false;
         boolean cardDateAccepted = false;
-
         do
         {
             cardDateAccepted = false;
             System.out.println("Please input Card Number: ");
             CardNo = sc.nextLine();
-            if (checkCardDigits(CardNo))
+            if (checker.checkCardDigits(CardNo))
             {
                 System.out.println("Card Number accepted! ");
                 do
                 {
-                    if (checkCardExpiry())
+                    if (checker.checkCardExpiry(expMonth, expYear))
                     {
                         cardDateAccepted = true;
                         cardAccepted = true;
@@ -146,10 +98,10 @@ public class DriveUpParkingTransaction
                     {
                         if (cardDateAccepted == false)
                         {
-                            writeToCentralAuth(false, "card expired");
+                            caw.writeToCentralAuth(false, "card expired", CardNo, expMonth, expYear);
                         }
                         else
-                            writeToCentralAuth(false, "invalid card number");
+                            caw.writeToCentralAuth(false, "invalid card number", CardNo, expMonth, expYear);
 
                         cardDateAccepted = true;
                     }
@@ -163,43 +115,11 @@ public class DriveUpParkingTransaction
         }
         while (cardAccepted == false);
         System.out.println("Card has been accepted and processed! Payment Complete!\n");
-        writeToCentralAuth(true, "n/a");
+        caw.writeToCentralAuth(true, "n/a", CardNo, expMonth, expYear);
 
         ParkingTransaction m = new ParkingTransaction();
         m.getOpt();
 
-    }
-
-    public boolean checkCardDigits(String CardNo)
-    {
-        if (CardNo.length() == 16)
-        {
-            return true;
-        }
-        else
-            return false;
-    }
-
-    public boolean checkCardExpiry()
-    {
-        Scanner sc = new Scanner(System.in);
-        Calendar c = new GregorianCalendar();
-
-        System.out.println("Enter Expiry Month: (mm)");
-        expMonth = sc.nextInt();
-        System.out.println("Enter Expiry Year: (YYYY)");
-        expYear = sc.nextInt();
-
-        if (expYear >= c.get(Calendar.YEAR) || expYear == c.get(Calendar.YEAR)
-                && expMonth >= (c.get(Calendar.MONTH) + 1))
-        {
-            return true;
-        }
-        else
-        {
-            System.out.println("Card Expired! Try another.");
-            return false;
-        }
     }
 
 }

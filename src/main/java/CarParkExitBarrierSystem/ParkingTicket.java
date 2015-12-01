@@ -21,6 +21,9 @@ public class ParkingTicket
 
     private int lengthOfStayMinutes;
 
+    private int transactionHour, transactionMinute;
+    // double cost;
+
     // prepaid
     public ParkingTicket(String RegNo, int ArrivalHrs, int ArrivalMin, int ExpiryHour, int ExpiryMin)
     {
@@ -39,37 +42,15 @@ public class ParkingTicket
         this.isPrePaid = false;
     }
 
+    public ParkingTicket()
+    {
+
+    }
+
     public String toString()
     {
         return "Registration Number: " + RegNo + ", Arrival Time: " + ArrivalHrs + ":" + ArrivalMin;
 
-    }
-
-    // overstayed prepaid
-    /*
-     * public ParkingTicket(String RegNo, int ArrivalHrs, int ArrivalMin, )
-     * {
-     * 
-     * }
-     */
-    public String getRegNo()
-    {
-        return RegNo;
-    }
-
-    public int getArrivalHrs()
-    {
-        return ArrivalHrs;
-    }
-
-    public int getArrivalMin()
-    {
-        return ArrivalMin;
-    }
-
-    public boolean getPrePaid()
-    {
-        return isPrePaid;
     }
 
     public int getTransactionHour()
@@ -77,9 +58,19 @@ public class ParkingTicket
         return c.get(Calendar.HOUR_OF_DAY);
     }
 
-    public int getTransactionMinutes()
+    public void setTransactionHour(int transactionHour)
+    {
+        this.transactionHour = transactionHour;
+    }
+
+    public int getTransactionMinute()
     {
         return c.get(Calendar.MINUTE);
+    }
+
+    void setTransactionMinute(int transactionMinute)
+    {
+        this.transactionMinute = transactionMinute;
     }
 
     public int getExpiryHour()
@@ -100,6 +91,37 @@ public class ParkingTicket
     public int getLengthOfStayMinutes()
     {
         return lengthOfStayMinutes;
+    }
+
+    public void setLengthOfStayMinutes(int lengthOfStayMinutes)
+    {
+        this.lengthOfStayMinutes = lengthOfStayMinutes;
+    }
+
+    public void setLengthOfStayHours(int lengthOfStayHours)
+    {
+        this.lengthOfStayHours = lengthOfStayHours;
+    }
+
+    public int workOutTheDay(Calendar currentDate)
+    {
+        return currentDate.get(Calendar.DAY_OF_WEEK);
+    }
+
+    public boolean isItAWeekend(Calendar currentDate)
+    {
+        int dayCalculation = workOutTheDay(currentDate);
+        if (dayCalculation == Calendar.SUNDAY || dayCalculation == Calendar.SATURDAY)
+        {
+            return true;
+
+        }
+
+        else
+        {
+            return false;
+        }
+
     }
 
 }

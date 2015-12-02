@@ -27,10 +27,34 @@ public class PrePaidParkingTransaction
         {
             System.out.println("Successfully Selected Yes");
             readPrePaidTicket();
+            arriveHour = getArrivalHour();
+            arriveMinute = getArrivalMinute();
+            expiryHour = getExpiryHour();
+            expiryMinute = getExpiryMinute();
+            cardNo = getCardNo();
+            reg = getReg();
+
+            OverstayedPrePaidParkingTransaction OverStay = new OverstayedPrePaidParkingTransaction();
+
+            if (OverStay.isOverstayed())
+            {
+                OverstayedPrePaidParkingTransaction overStayed = new OverstayedPrePaidParkingTransaction(reg,
+                        arriveHour, arriveMinute, expiryHour, expiryMinute, cardNo);
+                overStayed.createTransaction();
+            }
+            else
+                System.out.println("No further charges are due, thank you for using the car park exit barrier system.");
         }
-        if ("no".equalsIgnoreCase(opt))
+        else if ("no".equalsIgnoreCase(opt))
         {
             System.out.println("Successfully selected No");
+            ParkingTransaction m = new ParkingTransaction();
+            m.getOpt();
+
+        }
+        else
+        {
+            System.out.println("Invalid selection.");
             ParkingTransaction m = new ParkingTransaction();
             m.getOpt();
 
@@ -90,7 +114,6 @@ public class PrePaidParkingTransaction
 
             PT.calcLengthOfStay();
             PT.calculateCost();
-            System.out.println(PT.getCost());
 
         }
         else
@@ -125,6 +148,11 @@ public class PrePaidParkingTransaction
     public int getExpiryMinute()
     {
         return expiryMinute;
+    }
+
+    public String getCardNo()
+    {
+        return cardNo;
     }
 
 }

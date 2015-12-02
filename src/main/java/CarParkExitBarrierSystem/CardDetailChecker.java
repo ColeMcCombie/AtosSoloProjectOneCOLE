@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class CardDetailChecker
 {
+    int expiryMonth, expiryYear;
 
     public boolean checkCardDigits(String cardNo)
     {
@@ -22,9 +23,9 @@ public class CardDetailChecker
         Scanner sc = new Scanner(System.in);
         Calendar c = new GregorianCalendar();
         System.out.println("Enter Expiry Month: (mm)");
-        int expiryMonth = sc.nextInt();
+        expiryMonth = sc.nextInt();
         System.out.println("Enter Expiry Year: (YYYY)");
-        int expiryYear = sc.nextInt();
+        expiryYear = sc.nextInt();
 
         if (expiryYear >= c.get(Calendar.YEAR)
                 || expiryYear == c.get(Calendar.YEAR) && expiryMonth >= (c.get(Calendar.MONTH) + 1))
@@ -37,4 +38,15 @@ public class CardDetailChecker
             return false;
         }
     }
+
+    public int getExpiryMonth()
+    {
+        return expiryMonth;
+    }
+
+    public int getExpiryYear()
+    {
+        return expiryYear;
+    }
+
 }

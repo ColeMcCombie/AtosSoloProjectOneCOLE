@@ -43,16 +43,20 @@ public class TicketReader
                     System.out.println("Transaction Number: " + ticketSplitter[0] + ", Registration Number: "
                             + ticketSplitter[1] + ", Date: " + ticketSplitter[2] + ", Arrival Time: "
                             + ticketSplitter[3] + ":" + ticketSplitter[4]);
+                    arriveHour = Integer.parseInt(ticketSplitter[3]);
+                    arriveMinute = Integer.parseInt(ticketSplitter[4]);
                     ticketfound = true;
+
                 }
             }
 
             if (ticketfound)
             {
                 ParkingTransaction PT = new ParkingTransaction(reg, arriveHour, arriveMinute);
+
                 PT.calcLengthOfStay();
                 PT.calculateCost();
-                System.out.println(PT.getCost());
+                System.out.println("The ammount you are owe is: £" + PT.getCost() + "\n");
 
             }
             else if (ticketfound == false)

@@ -18,8 +18,6 @@ public class ParkingTransaction
 
     OverstayedPrePaidParkingTransaction OverStay = new OverstayedPrePaidParkingTransaction();
 
-    // main method
-
     public static void main(String[] args)
     {
 
@@ -32,7 +30,7 @@ public class ParkingTransaction
 
     private Calendar c = new GregorianCalendar();
 
-    private String reg;
+    private String reg, cardNo;
 
     private int arriveHour;
 
@@ -56,7 +54,7 @@ public class ParkingTransaction
         System.out.println("Please pick one of the following options:");
         System.out.println("1. Pre-paid Ticket");
         System.out.println("2. DriveUp Ticket");
-        System.out.println("3. Pay For Stay");
+        System.out.println("3. Pay For Stay (Drive Up)");
         System.out.println("4. End Program");
 
         String opt = sc.next();
@@ -76,37 +74,10 @@ public class ParkingTransaction
         }
         else if ("3".equals(opt))
         {
-            System.out.println("Have you pre paid?");
-            String opt2 = sc.next();
-            if ("yes".equalsIgnoreCase(opt2))
-            {
-                PrePaid.readPrePaidTicket();
-                arriveHour = PrePaid.getArrivalHour();
-                arriveMinute = PrePaid.getArrivalMinute();
-                expiryHour = PrePaid.getExpiryHour();
-                expiryMinute = PrePaid.getExpiryMinute();
-                reg = PrePaid.getReg();
-
-                if (OverStay.isOverstayed())
-                {
-                    OverstayedPrePaidParkingTransaction overStayed = new OverstayedPrePaidParkingTransaction(reg,
-                            arriveHour, arriveMinute, expiryHour, expiryMinute);
-                    overStayed.createTransaction();
-                }
-                else
-                {
-                    System.out.println("Error. Returning to main menu.\n");
-                    getOpt();
-                }
-
-            }
-            else if ("no".equalsIgnoreCase(opt2))
-            {
-                System.out.println("Pay For Stay");
-                DriveUp.confirmSelection(sc, false);
-            }
-
+            System.out.println("Pay For Stay (DriveUp)");
+            DriveUp.confirmSelection(sc, false);
         }
+
         else if ("4".equals(opt))
         {
             System.out.println("Have" + " a good day!!");
@@ -146,8 +117,9 @@ public class ParkingTransaction
     public void calcLengthOfStay()
     {
 
-        lengthOfStayHours = c.get(Calendar.HOUR_OF_DAY) - arriveHour;
-        lengthOfStayMinutes = c.get(Calendar.MINUTE) - arriveMinute;
+        lengthOfStayHours = (c.get(Calendar.HOUR_OF_DAY)) - arriveHour;
+
+        lengthOfStayMinutes = (c.get(Calendar.MINUTE)) - arriveMinute;
 
         if (lengthOfStayMinutes < 0)
         {
@@ -188,9 +160,6 @@ public class ParkingTransaction
         if (ChargeableHour < 0 || ChargeableHour == 0 && ChargeableMinute < 1)
             ChargeableHour += 24;
 
-        System.out.println(ChargeableHour);
-        System.out.println(ChargeableMinute);
-
         totalMins = ChargeableMinute + (ChargeableHour * 60);
         if (checkWeekDay())
         {
@@ -229,6 +198,7 @@ public class ParkingTransaction
 
     private void weekdayGetCharge()
     {
+
         if (totalMins <= 60)
             cost = Charge.WDUpTo1.getCharge();
         else if (totalMins <= 120)

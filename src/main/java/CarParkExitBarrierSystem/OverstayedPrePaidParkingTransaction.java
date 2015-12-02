@@ -3,17 +3,20 @@ package CarParkExitBarrierSystem;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Scanner;
 
 public class OverstayedPrePaidParkingTransaction extends ParkingTicket
 {
     private int expiryHour, expiryMinute, arriveHour, arriveMinute;
 
-    String reg;
+    int expiryMonth, expiryYear;
+
+    String reg, cardNo;
 
     double cost, discount;
 
     public OverstayedPrePaidParkingTransaction(String reg, int arriveHour, int arriveMinute, int expiryHour,
-            int expiryMinute)
+            int expiryMinute, String cardNo)
     {
         super(reg, arriveHour, arriveMinute, expiryHour, expiryMinute);
         this.reg = reg;
@@ -21,6 +24,7 @@ public class OverstayedPrePaidParkingTransaction extends ParkingTicket
         this.arriveMinute = arriveMinute;
         this.expiryHour = expiryHour;
         this.expiryMinute = expiryMinute;
+        this.cardNo = cardNo;
 
     }
 
@@ -28,7 +32,62 @@ public class OverstayedPrePaidParkingTransaction extends ParkingTicket
     {
         calculateCost();
         calculateDiscount();
-        System.out.println(discount);
+        System.out.println(
+                "You have overstayed for the ammount you had prepaid, the ammount you are due is £" + discount);
+        payForTicket(reg, "O", expiryMonth, expiryYear);
+    }
+
+    public void payForTicket(String reg, String transType, int expiryMonth, int expiryYear)
+    {
+        CardDetailChecker checker = new CardDetailChecker();
+        CentralAuthWriter caw = new CentralAuthWriter();
+
+        Scanner sc = new Scanner(System.in);
+
+        boolean cardAccepted = false;
+        do
+        {
+
+            boolean cardDateAccepted = false;
+            System.out.println("Please input Card Number: ");
+            cardNo = sc.nextLine();
+            if (checker.checkCardDigits(cardNo))
+            {
+                System.out.println("Card Number accepted! ");
+                do
+                {
+                    if (checker.checkCardExpiry())
+                    {
+                        cardDateAccepted = true;
+                        cardAccepted = true;
+                    }
+                    else
+                    {
+                        if (cardDateAccepted == false)
+                        {
+
+                            caw.writeToCentralAuth(false, "card expired", "O", cardNo, expiryMonth, expiryYear);
+                        }
+                        else
+                        {
+
+                            caw.writeToCentralAuth(false, "invalid card number", "O", cardNo, expiryMonth, expiryYear);
+                        }
+                        cardDateAccepted = true;
+                    }
+
+                }
+                while (cardDateAccepted == false);
+
+            }
+            else
+                System.out.println("Please try again.");
+        }
+        while (cardAccepted == false);
+        System.out.println("Card has been accepted and processed! Payment Complete!\n");
+
+        caw.writeToCentralAuth(true, "n/a", transType, cardNo, checker.getExpiryMonth(), checker.getExpiryYear());
+
     }
 
     public OverstayedPrePaidParkingTransaction()
@@ -40,8 +99,8 @@ public class OverstayedPrePaidParkingTransaction extends ParkingTicket
     {
         Calendar c = new GregorianCalendar();
 
-        if ((expiryHour < c.get(Calendar.HOUR_OF_DAY))
-                || ((expiryHour == c.get(Calendar.HOUR_OF_DAY)) && (expiryMinute < c.get(Calendar.MINUTE))))
+        if ((expiryHour > c.get(Calendar.HOUR_OF_DAY))
+                || ((expiryHour == c.get(Calendar.HOUR_OF_DAY)) && (expiryMinute > c.get(Calendar.MINUTE))))
         {
             return true;
         }

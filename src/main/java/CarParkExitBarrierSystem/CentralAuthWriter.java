@@ -9,7 +9,8 @@ import java.util.Scanner;
 
 public class CentralAuthWriter
 {
-    public void writeToCentralAuth(boolean isPass, String reason, String cardNo, int expiryMonth, int expiryYear)
+    public void writeToCentralAuth(boolean isPass, String reason, String transType, String cardNo, int expiryMonth,
+            int expiryYear)
     {
         String passed;
 
@@ -45,9 +46,9 @@ public class CentralAuthWriter
             Calendar c = new GregorianCalendar();
             int day = c.get(Calendar.DAY_OF_MONTH), Month = c.get(Calendar.MONTH), Year = c.get(Calendar.YEAR);
             String dateOfTrans = day + "/" + Month + "/" + Year;
-            wr.println("Transaction Number: " + ammountOfTrans + ", Transaction Type: D, Card Number: " + cardNo
-                    + ", Expiry Date: " + expiryMonth + "/" + expiryYear + ", Date Of Transaction: " + dateOfTrans
-                    + ", request outcome:" + passed + ", + reason: " + reason);
+            wr.println("Transaction Number: " + ammountOfTrans + ", Transaction Type: " + transType + ", Card Number: "
+                    + cardNo + ", Expiry Date: " + expiryMonth + "/" + expiryYear + ", Date Of Transaction: "
+                    + dateOfTrans + ", request outcome:" + passed + ", + reason: " + reason);
             wr.close();
 
         }

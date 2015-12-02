@@ -24,11 +24,18 @@ public class DriveUpParkingTransaction
                 DriveUpParkingTransaction TRANS = new DriveUpParkingTransaction();
                 TRANS.getTicket();
             }
-            if ("no".equalsIgnoreCase(opt))
+            else if ("no".equalsIgnoreCase(opt))
             {
                 System.out.println("Successfully selected No");
                 ParkingTransaction m = new ParkingTransaction();
                 m.getOpt();
+            }
+            else
+            {
+                System.out.println("Invalid selection.");
+                ParkingTransaction m = new ParkingTransaction();
+                m.getOpt();
+
             }
         }
         else
@@ -39,13 +46,20 @@ public class DriveUpParkingTransaction
             {
                 System.out.println("Successfully Selected Yes");
                 DriveUpParkingTransaction TRANS = new DriveUpParkingTransaction();
-                TRANS.payForTicket();
+                TRANS.payForTicket("D");
             }
-            if ("no".equalsIgnoreCase(opt))
+            else if ("no".equalsIgnoreCase(opt))
             {
                 System.out.println("Successfully selected No");
                 ParkingTransaction m = new ParkingTransaction();
                 m.getOpt();
+            }
+            else
+            {
+                System.out.println("Invalid selection.");
+                ParkingTransaction m = new ParkingTransaction();
+                m.getOpt();
+
             }
         }
     }
@@ -67,7 +81,7 @@ public class DriveUpParkingTransaction
         write.writeToFile(reg, hour, minute);
     }
 
-    public void payForTicket()
+    public void payForTicket(String transType)
     {
         CardDetailChecker checker = new CardDetailChecker();
         CentralAuthWriter caw = new CentralAuthWriter();
@@ -98,10 +112,11 @@ public class DriveUpParkingTransaction
                     {
                         if (cardDateAccepted == false)
                         {
-                            caw.writeToCentralAuth(false, "card expired", cardNo, expiryMonth, expiryYear);
+                            caw.writeToCentralAuth(false, "card expired", cardNo, transType, expiryMonth, expiryYear);
                         }
                         else
-                            caw.writeToCentralAuth(false, "invalid card number", cardNo, expiryMonth, expiryYear);
+                            caw.writeToCentralAuth(false, "invalid card number", cardNo, transType, expiryMonth,
+                                    expiryYear);
 
                         cardDateAccepted = true;
                     }
@@ -115,7 +130,7 @@ public class DriveUpParkingTransaction
         }
         while (cardAccepted == false);
         System.out.println("Card has been accepted and processed! Payment Complete!\n");
-        caw.writeToCentralAuth(true, "n/a", cardNo, expiryMonth, expiryYear);
+        caw.writeToCentralAuth(true, "n/a", transType, cardNo, expiryMonth, expiryYear);
 
         ParkingTransaction m = new ParkingTransaction();
         m.getOpt();

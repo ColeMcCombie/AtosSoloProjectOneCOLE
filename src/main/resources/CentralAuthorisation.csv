@@ -1,4 +1,4 @@
-16
+24
 Transaction Number: 1, Transaction Type: D, Card Number: 9999999999999999, Expiry Date: 2/2018, Date Of Transaction: 10/10/2015, request outcome:Pass, + reason: n/a
 Transaction Number: 2, Transaction Type: D, Card Number: 4444666677772222, Expiry Date: 11/2024, Date Of Transaction: 10/10/2015, request outcome:Pass, + reason: n/a
 Transaction Number: 3, Transaction Type: D, Card Number: 1111222233334444, Expiry Date: 2/2102, Date Of Transaction: 10/10/2015, request outcome:Pass, + reason: n/a
@@ -15,3 +15,11 @@ Transaction Number: 13, Transaction Type: D, Card Number: 1234512345123456, Expi
 Transaction Number: 14, Transaction Type: D, Card Number: 1111111111111111, Expiry Date: 12/20, Date Of Transaction: 1/11/2015, request outcome:Fail, + reason: card expired
 Transaction Number: 15, Transaction Type: D, Card Number: 2222222222222222, Expiry Date: 12/2020, Date Of Transaction: 1/11/2015, request outcome:Pass, + reason: n/a
 Transaction Number: 16, Transaction Type: D, Card Number: 1111111111111111, Expiry Date: 0/0, Date Of Transaction: 1/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 17, Transaction Type: D, Card Number: 1111222233334444, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 18, Transaction Type: O, Card Number: 1111222233334444, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 19, Transaction Type: O, Card Number: 1111222233334444, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 20, Transaction Type: O, Card Number: 1111222233334444, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 21, Transaction Type: O, Card Number: 1111222233334444, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 22, Transaction Type: O, Card Number: 1111222233334444, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 23, Transaction Type: O, Card Number: 1111222233334444, Expiry Date: 12/2020, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 24, Transaction Type: O, Card Number: 1111222233334444, Expiry Date: 12/2020, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a

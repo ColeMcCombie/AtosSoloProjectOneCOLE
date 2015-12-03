@@ -99,8 +99,8 @@ public class OverstayedPrePaidParkingTransaction extends ParkingTicket
     {
         Calendar c = new GregorianCalendar();
 
-        if ((expiryHour > c.get(Calendar.HOUR_OF_DAY))
-                || ((expiryHour == c.get(Calendar.HOUR_OF_DAY)) && (expiryMinute > c.get(Calendar.MINUTE))))
+        if ((expiryHour < c.get(Calendar.HOUR_OF_DAY))
+                || ((expiryHour == c.get(Calendar.HOUR_OF_DAY)) && (expiryMinute < c.get(Calendar.MINUTE))))
         {
             return true;
         }

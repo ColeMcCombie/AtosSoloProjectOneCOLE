@@ -30,7 +30,6 @@ public class TicketReader
         {
             throw new RuntimeException("File was not found");
         }
-        // write
         if (payForTicket)
         {
             boolean ticketfound = false;

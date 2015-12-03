@@ -1,4 +1,4 @@
-24
+30
 Transaction Number: 1, Transaction Type: D, Card Number: 9999999999999999, Expiry Date: 2/2018, Date Of Transaction: 10/10/2015, request outcome:Pass, + reason: n/a
 Transaction Number: 2, Transaction Type: D, Card Number: 4444666677772222, Expiry Date: 11/2024, Date Of Transaction: 10/10/2015, request outcome:Pass, + reason: n/a
 Transaction Number: 3, Transaction Type: D, Card Number: 1111222233334444, Expiry Date: 2/2102, Date Of Transaction: 10/10/2015, request outcome:Pass, + reason: n/a
@@ -23,3 +23,9 @@ Transaction Number: 21, Transaction Type: O, Card Number: 1111222233334444, Expi
 Transaction Number: 22, Transaction Type: O, Card Number: 1111222233334444, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
 Transaction Number: 23, Transaction Type: O, Card Number: 1111222233334444, Expiry Date: 12/2020, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
 Transaction Number: 24, Transaction Type: O, Card Number: 1111222233334444, Expiry Date: 12/2020, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 25, Transaction Type: D, Card Number: 8765432112345678, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 26, Transaction Type: 1234567887654321, Card Number: D, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Fail, + reason: card expired
+Transaction Number: 27, Transaction Type: O, Card Number: 1111222233334444, Expiry Date: 12/2020, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 28, Transaction Type: D, Card Number: 1234567890987654, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Pass, + reason: n/a
+Transaction Number: 29, Transaction Type: 9999888877776666, Card Number: D, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Fail, + reason: card expired
+Transaction Number: 30, Transaction Type: 1111111111111111, Card Number: D, Expiry Date: 0/0, Date Of Transaction: 2/11/2015, request outcome:Fail, + reason: card expired

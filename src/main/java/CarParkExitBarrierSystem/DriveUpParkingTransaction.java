@@ -3,9 +3,19 @@ package CarParkExitBarrierSystem;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DriveUpParkingTransaction
 {
+    Pattern p = Pattern.compile("a*b");
+
+    Matcher m = p.matcher("aaaaab");
+
+    boolean b = m.matches();
+
+    boolean regAccepted = false;
+
     private String cardNo = "";
 
     String reg;
@@ -68,9 +78,34 @@ public class DriveUpParkingTransaction
     {
         Scanner sc = new Scanner(System.in);
         Calendar c = new GregorianCalendar();
+
         int hour = c.get(Calendar.HOUR_OF_DAY), minute = c.get(Calendar.MINUTE);
-        System.out.println("Enter Registration Number: ");
-        reg = sc.nextLine();
+        do
+        {
+            System.out.println("Enter Registration Number: ");
+            reg = sc.nextLine();
+
+            RegistrationChecker regCheck = new RegistrationChecker();
+
+            if (regCheck.checkRegistrationNumber(reg))
+            {
+                ParkingTicket DUT = new ParkingTicket(reg, hour, minute);
+                // DUT = drive up ticket
+                System.out.println(DUT.toString());
+                TicketReader read = new TicketReader();
+                FileWriter write = new FileWriter();
+
+                read.readFile(reg, false);
+                write.writeToFile(reg, hour, minute, read);
+                regAccepted = true;
+            }
+            else
+            {
+                System.out.println("Incorrect registration number. \nPlease Try Again.");
+            }
+        }
+        while (regAccepted == false);
+
         ParkingTicket DUT = new ParkingTicket(reg, hour, minute);
         // DUT = drive up ticket
         System.out.println(DUT.toString());
@@ -78,7 +113,7 @@ public class DriveUpParkingTransaction
         FileWriter write = new FileWriter();
 
         read.readFile(reg, false);
-        write.writeToFile(reg, hour, minute);
+        write.writeToFile(reg, hour, minute, read);
     }
 
     public void payForTicket(String transType)
@@ -87,10 +122,27 @@ public class DriveUpParkingTransaction
         CentralAuthWriter caw = new CentralAuthWriter();
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Registration Number: ");
-        reg = sc.nextLine();
-        TicketReader PFT = new TicketReader();
-        PFT.readFile(reg, true);
+        regAccepted = false;
+        do
+        {
+            System.out.println("Enter Registration Number: ");
+            reg = sc.nextLine();
+
+            RegistrationChecker regCheck = new RegistrationChecker();
+
+            if (regCheck.checkRegistrationNumber(reg))
+            {
+                TicketReader PFT = new TicketReader();
+                PFT.readFile(reg, true);
+                regAccepted = true;
+            }
+            else
+            {
+                System.out.println("Incorrect registration number. \nPlease Try Again.");
+            }
+        }
+        while (regAccepted == false);
+
         boolean cardAccepted = false;
         do
         {

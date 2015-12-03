@@ -10,7 +10,7 @@ public class CardDetailChecker
 
     public boolean checkCardDigits(String cardNo)
     {
-        if (cardNo.length() == 16)
+        if (cardNo.matches("[0-9]+") && cardNo.length() == 16)
         {
             return true;
         }
